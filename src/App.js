@@ -1,25 +1,151 @@
-import logo from './logo.svg';
+import React from "react";
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	Link
+} from "react-router-dom";
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default function App() {
+	return (
+		<Router>
+			<Switch>
+			<Route path="/projects">
+					<ProjectsSelectionScreen />
+				</Route>
+				<Route path="/example-project">
+					<ProjectScreen />
+				</Route>
+				<Route path="/about">
+					<About />
+				</Route>
+				<Route path="/">
+					<Home />
+				</Route>
+			</Switch>
+		</Router>
+	);
 }
 
-export default App;
+function Home() {
+	return (
+		<div>
+			<Nav />
+			<h2>Home</h2>
+			<h2>Recently edited projects</h2>
+			<ul>
+				{projects.slice(0,3).map((project, i) => (
+					<li key={i}>
+						<div>
+							<a href="#">{project.name}</a>
+						</div>
+						<div>
+							<time>{project.modifiedAt.toISOString()}</time>
+						</div>
+					</li>
+				))}
+			</ul>
+		</div>
+	);
+}
+
+const projects = Array(9).fill({
+	name: 'project 1',
+	description: 'A completely worthwhile description, worthy of reading',
+	modifiedAt: new Date(),
+	timelines: Array(3).fill({
+		name: 'Timeline Name',
+		description: 'the "main" timeline',
+	}),
+	characters: [
+		{
+			name: 'Adam',
+			birthplace: 'Garden of Feedin\'',
+		},
+		{
+			name: 'Eve',
+			birthplace: 'Garden of Feedin\'',
+		},
+	],
+});
+
+function ProjectsSelectionScreen() {
+
+	return (
+		<div>
+			<Nav />
+			<h2>Choose a project to edit</h2>
+			<ul>
+				{
+					projects.map((project, i) => (
+						<li key={i}>
+							<div>
+								<a href="#">{project.name}</a>
+							</div>
+							<div>
+								<time>{project.modifiedAt.toISOString()}</time>
+							</div>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	);
+}
+
+function ProjectScreen() {
+	return (
+		<div>
+			<ProjectUtilityMenu />
+			<ProjectTimelinesSection />
+		</div>
+	);
+}
+
+function ProjectUtilityMenu() {
+	return (
+		<div className="ProjectUtilityMenu">
+			<h1>{projects[0].name}</h1>
+		</div>
+	);
+}
+
+function ProjectTimelinesSection() {
+	return (
+		<div className="ProjectTimelinesSection">
+			
+		</div>
+	);
+}
+
+function About() {
+	return (
+		<div>
+			<Nav />
+			<h2>About</h2>
+		</div>
+	);
+}
+
+function Nav() {
+	return (
+		<nav>
+			<ul>
+				<li>
+					<Link to="/">Home</Link>
+				</li>
+				<li>
+					<Link to="/projects">Projects</Link>
+				</li>
+				<li>
+					<Link to="/example-project">Example Proj</Link>
+				</li>
+				<li>
+					<Link to="/about">About</Link>
+				</li>
+			</ul>
+		</nav>
+	);
+}
