@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 
 import './App.css';
+import projects from './stateMockProjects';
 
 export default function App() {
 	return (
@@ -50,26 +51,6 @@ function Home() {
 		</div>
 	);
 }
-
-const projects = Array(9).fill({
-	name: 'project 1',
-	description: 'A completely worthwhile description, worthy of reading',
-	modifiedAt: new Date(),
-	timelines: Array(3).fill({
-		name: 'Timeline Name',
-		description: 'the "main" timeline',
-	}),
-	characters: [
-		{
-			name: 'Adam',
-			birthplace: 'Garden of Feedin\'',
-		},
-		{
-			name: 'Eve',
-			birthplace: 'Garden of Feedin\'',
-		},
-	],
-});
 
 function ProjectsSelectionScreen() {
 
